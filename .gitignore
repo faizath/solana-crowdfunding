@@ -1,0 +1,24 @@
+# Rust / SBF build output (includes target/deploy/*-keypair.json)
+target/
+out/
+cache/
+test-ledger/
+.anchor/
+broadcast/
+*.so
+
+# Node
+node_modules/
+
+# Secrets – never commit keys or environment files
+.env
+.env.*
+!.env.example
+*keypair*.json
+secrets/
+*.key
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
