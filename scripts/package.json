@@ -1,0 +1,23 @@
+{
+  "name": "solana-crowdfunding-scripts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TypeScript client and Devnet demo for the solana-crowdfunding program",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "demo": "tsx demo.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.3"
+  }
+}
