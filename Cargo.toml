@@ -1,0 +1,52 @@
+[package]
+name = "solana-crowdfunding"
+version = "0.1.0"
+description = "Kickstarter-style crowdfunding program for Solana: PDA-escrowed donations, goal-gated withdrawals and trustless refunds."
+edition = "2021"
+license = "MIT"
+readme = "README.md"
+keywords = ["solana", "crowdfunding", "escrow", "pda", "smart-contract"]
+categories = ["cryptography::cryptocurrencies"]
+publish = false
+
+[lib]
+name = "solana_crowdfunding"
+crate-type = ["cdylib", "lib"]
+
+[features]
+# Lets other on-chain programs / off-chain clients depend on this crate for the
+# instruction builders and state types without pulling in a second entrypoint.
+no-entrypoint = []
+
+[dependencies]
+borsh = { version = "1.5", features = ["derive"] }
+solana-program = "4.1"
+solana-system-interface = { version = "3.3", features = ["bincode"] }
+solana-sysvar = "4.2"
+thiserror = "2.0"
+
+[dev-dependencies]
+litesvm = "0.17"
+solana-account = "4.3"
+solana-keypair = "3.1"
+solana-native-token = "3.0"
+solana-signer = "3.0"
+solana-transaction = "4.1"
+solana-transaction-error = "3.4"
+
+[lints.rust]
+# `entrypoint!` expands cfgs for optional custom heap/panic handlers.
+unexpected_cfgs = { level = "warn", check-cfg = [
+    'cfg(target_os, values("solana"))',
+    'cfg(feature, values("custom-heap", "custom-panic"))',
+] }
+
+[profile.release]
+# Defence in depth: the program already uses checked arithmetic everywhere.
+overflow-checks = true
+codegen-units = 1
+
+[profile.release.build-override]
+opt-level = 3
+incremental = false
+codegen-units = 1
